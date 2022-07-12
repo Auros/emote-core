@@ -1,5 +1,5 @@
-import type { inferAsyncReturnType } from '@trpc/server';
-import * as trpc from '@trpc/server';
+import * as trpc from "@trpc/server";
+import type { inferAsyncReturnType } from "@trpc/server";
 
 // optional
 export const createContext = () => {

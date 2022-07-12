@@ -1,5 +1,5 @@
-import {OAuth2Provider} from "sveltekit-oauth/providers";
-import type {OAuth2ProviderConfig} from "sveltekit-oauth/dist/providers/oauth2";
+import { OAuth2Provider } from "sveltekit-oauth/providers";
+import type { OAuth2ProviderConfig } from "sveltekit-oauth/dist/providers/oauth2";
 
 export interface DiscordProfile {
     id: string,
