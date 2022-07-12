@@ -2,10 +2,10 @@
 	"name": "emote-core",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
+		"dev": "env-cmd vite dev --https",
+		"build": "env-cmd vite build",
 		"package": "svelte-kit package",
-		"preview": "vite preview",
+		"preview": "env-cmd vite preview",
 		"prepare": "svelte-kit sync",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
@@ -25,9 +25,16 @@
 		"svelte": "^3.44.0",
 		"svelte-check": "^2.7.1",
 		"svelte-preprocess": "^4.10.6",
+		"sveltekit-oauth": "^0.1.4",
 		"tslib": "^2.3.1",
 		"typescript": "^4.7.4",
 		"vite": "^2.9.13"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@trpc/client": "^9.25.3",
+		"@trpc/server": "^9.25.3",
+		"env-cmd": "^10.1.0",
+		"trpc-sveltekit": "^2.1.1"
+	}
 }
