@@ -1,4 +1,5 @@
 import * as trpc from "@trpc/server";
+import trpcTransformer from "trpc-transformer";
 import type { inferAsyncReturnType } from "@trpc/server";
 
 // optional
@@ -19,6 +20,7 @@ export const responseMeta = () => {
 
 export const router = trpc
     .router<inferAsyncReturnType<typeof createContext>>()
+    .transformer(trpcTransformer)
     // queries and mutations...
     .query('hello', {
         resolve: () => 'world',

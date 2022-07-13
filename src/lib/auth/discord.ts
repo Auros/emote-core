@@ -1,11 +1,14 @@
 import { OAuth2Provider } from "sveltekit-oauth/providers";
 import type { OAuth2ProviderConfig } from "sveltekit-oauth/dist/providers/oauth2";
+import * as fs from "fs";
+import download from "download";
+import prismaClient from "../server/prismaClient";
 
 export interface DiscordProfile {
     id: string,
     username: string,
     discriminator: string,
-    avatar: string
+    avatar: string,
 }
 
 export interface DiscordTokens {
@@ -46,6 +49,17 @@ export class DiscordOAuth2Provider extends OAuth2Provider<DiscordProfile, Discor
 
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const response = await fetch(this.config.profileUrl!, { headers: headers })
-        return await response.json();
+        const json = await response.json();
+
+        const url = `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.png?size=256`
+        const name = `${json.id}-${json.avatar}.png`
+
+        if (!fs.existsSync(`static/profiles/${name}`)) {
+            await download(url, 'static/profiles', {
+                filename: name
+            })
+        }
+
+        return json;
     }
 }

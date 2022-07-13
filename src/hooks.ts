@@ -1,7 +1,7 @@
 import auth from "./lib/auth";
-import { router } from "$lib/trpcServer"
-import type { Handle } from "@sveltejs/kit";
+import { router } from "./lib/server/trpcServer"
 import { createTRPCHandle } from "trpc-sveltekit";
+import type { GetSession, Handle } from "@sveltejs/kit";
 
 // noinspection JSUnusedGlobalSymbols
 export const handle: Handle = async ({ event, resolve }) => {
@@ -17,4 +17,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 };
 
 // noinspection JSUnusedGlobalSymbols
-export const { getSession } = auth;
+export const getSession: GetSession = async (request) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const { user } = await auth.getSession(request);
+
+    return { user };
+};

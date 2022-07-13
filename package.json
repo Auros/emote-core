@@ -15,6 +15,7 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
+		"@types/download": "^8.0.1",
 		"@typescript-eslint/eslint-plugin": "^5.27.0",
 		"@typescript-eslint/parser": "^5.27.0",
 		"eslint": "^8.16.0",
@@ -36,7 +37,10 @@
 		"@prisma/client": "^4.0.0",
 		"@trpc/client": "^9.25.3",
 		"@trpc/server": "^9.25.3",
+		"axios": "^0.27.2",
+		"download": "^8.0.0",
 		"env-cmd": "^10.1.0",
-		"trpc-sveltekit": "^2.1.1"
+		"trpc-sveltekit": "^2.1.1",
+		"trpc-transformer": "^2.0.3"
 	}
 }

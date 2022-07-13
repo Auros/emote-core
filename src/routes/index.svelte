@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { session } from "$app/stores";
-    import trpcClient from "$lib/trpcClient";
     import pubEnv from "$lib/env/pubEnv";
+    import { session } from "$app/stores";
+    import trpcClient from "$lib/server/trpcClient";
 
     let greeting = '<null>';
 

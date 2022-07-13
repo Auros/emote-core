@@ -1,4 +1,4 @@
-import privEnv from "../env/privEnv";
+import privEnv from "$lib/env/privEnv";
 import { SvelteKitAuth } from "sveltekit-oauth";
 import { DiscordOAuth2Provider } from "./discord";
 
