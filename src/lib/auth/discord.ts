@@ -1,14 +1,11 @@
-import { OAuth2Provider } from "sveltekit-oauth/providers";
-import type { OAuth2ProviderConfig } from "sveltekit-oauth/dist/providers/oauth2";
-import * as fs from "fs";
-import download from "download";
-import prismaClient from "../server/prismaClient";
+import { OAuth2Provider } from 'sveltekit-oauth/providers';
+import type { OAuth2ProviderConfig } from 'sveltekit-oauth/dist/providers/oauth2';
 
 export interface DiscordProfile {
-    id: string,
-    username: string,
-    discriminator: string,
-    avatar: string,
+    id: string;
+    username: string;
+    discriminator: string;
+    avatar: string;
 }
 
 export interface DiscordTokens {
@@ -19,18 +16,17 @@ export interface DiscordTokens {
 type DiscordOAuth2ProviderConfig = OAuth2ProviderConfig<DiscordProfile, DiscordTokens>;
 
 const defaultConfig: Partial<DiscordOAuth2ProviderConfig> = {
-    id: "discord",
-    scope: "identify",
-    accessTokenUrl: "https://discord.com/api/v10/oauth2/token",
-    authorizationUrl: "https://discord.com/api/v10/oauth2/authorize",
-    profileUrl: "https://discord.com/api/v10/users/@me",
+    id: 'discord',
+    scope: 'identify',
+    accessTokenUrl: 'https://discord.com/api/v10/oauth2/token',
+    authorizationUrl: 'https://discord.com/api/v10/oauth2/authorize',
+    profileUrl: 'https://discord.com/api/v10/users/@me',
     headers: {
-        Accept: "application/json"
+        Accept: 'application/json'
     },
     grantType: 'authorization_code',
-    contentType: 'application/x-www-form-urlencoded',
-    params: "bruh"
-}
+    contentType: 'application/x-www-form-urlencoded'
+};
 
 export class DiscordOAuth2Provider extends OAuth2Provider<DiscordProfile, DiscordTokens, DiscordOAuth2ProviderConfig> {
     constructor(config: DiscordOAuth2ProviderConfig) {
@@ -42,24 +38,13 @@ export class DiscordOAuth2Provider extends OAuth2Provider<DiscordProfile, Discor
 
     async getUserProfile(tokens: DiscordTokens): Promise<DiscordProfile> {
         const headers = {
-            "User-Agent": "EmoteCoreAN",
-            Accept: "application/json",
-            Authorization: `Bearer ${tokens.access_token}`,
+            'User-Agent': 'EmoteCoreAN',
+            Accept: 'application/json',
+            Authorization: `Bearer ${tokens.access_token}`
         };
 
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const response = await fetch(this.config.profileUrl!, { headers: headers })
-        const json = await response.json();
-
-        const url = `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.png?size=256`
-        const name = `${json.id}-${json.avatar}.png`
-
-        if (!fs.existsSync(`static/profiles/${name}`)) {
-            await download(url, 'static/profiles', {
-                filename: name
-            })
-        }
-
-        return json;
+        const response = await fetch(this.config.profileUrl!, { headers: headers });
+        return await response.json();
     }
 }

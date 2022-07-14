@@ -1,6 +1,6 @@
-import privEnv from "$lib/env/privEnv";
-import { SvelteKitAuth } from "sveltekit-oauth";
-import { DiscordOAuth2Provider } from "./discord";
+import privEnv from '$lib/env/privEnv';
+import { SvelteKitAuth } from 'sveltekit-oauth';
+import { DiscordOAuth2Provider } from './discord';
 
 const auth = new SvelteKitAuth({
     providers: [
@@ -8,11 +8,11 @@ const auth = new SvelteKitAuth({
             clientId: privEnv.discordClientId,
             clientSecret: privEnv.discordClientSecret,
             profile(profile) {
-                return { ...profile, provider: "discord" }
+                return { ...profile, provider: 'discord' };
             }
         })
     ],
     jwtSecret: privEnv.jwtSecret
-})
+});
 
 export default auth;
