@@ -1,0 +1,20 @@
+/* Variables and mixins declared here will be available in all other SCSS files */ /* https://github.com/jgthms/bulma/issues/1293 */
+$body-overflow-y: auto;
+
+$black: #ffffff;
+$white: #131313;
+
+$black-bis: #e5e5e5;
+$white-bis: #1f1f1f;
+
+$black-ter: #c9c9c9;
+$white-ter: #363636;
+
+$grey-darker: #a8a8a8;
+$grey-dark: #808080;
+$grey: #595959;
+$grey-light: #4f4f4f;
+$grey-lighter: #3a3a3a;
+$grey-lightest: #3a3a3a;
+
+$modal-background-background-color: rgba(44, 44, 44, 0.68);

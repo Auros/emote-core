@@ -19,12 +19,14 @@
         "@types/download": "^8.0.1",
         "@typescript-eslint/eslint-plugin": "^5.27.0",
         "@typescript-eslint/parser": "^5.27.0",
+        "bulma": "^0.9.4",
         "eslint": "^8.16.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-svelte3": "^4.0.0",
         "prettier": "^2.6.2",
         "prettier-plugin-svelte": "^2.7.0",
         "prisma": "^4.0.0",
+        "sass": "^1.53.0",
         "svelte": "^3.44.0",
         "svelte-check": "^2.7.1",
         "svelte-preprocess": "^4.10.7",
@@ -43,6 +45,7 @@
         "download": "^8.0.0",
         "env-cmd": "^10.1.0",
         "trpc-sveltekit": "^2.1.1",
-        "trpc-transformer": "^2.0.3"
+        "trpc-transformer": "^2.0.3",
+        "zod": "^3.17.3"
     }
 }
