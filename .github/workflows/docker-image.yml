@@ -9,6 +9,8 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  VITE_BASE_URL: https://emote-core.auros.dev
+  VITE_EMOTE_CDN: https://emote-core.auros.dev
 
 jobs:
   build:
