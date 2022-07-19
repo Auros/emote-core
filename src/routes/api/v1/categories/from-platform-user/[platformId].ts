@@ -2,8 +2,8 @@
 // @ts-ignore
 import md5ToUuid from 'md5-to-uuid';
 
+import { Md5 } from 'ts-md5';
 import pubEnv from '$lib/env/pubEnv';
-import { Md5 } from 'ts-md5/dist/md5';
 import type { RequestEvent } from '@sveltejs/kit';
 import prismaClient from '$lib/server/prismaClient';
 
