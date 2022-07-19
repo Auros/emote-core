@@ -17,8 +17,9 @@
     import type { User, Role } from '@prisma/client';
 
     export let user: User;
-
     let selectedRole: Role;
+    let selectedPlatformId: string | null;
+
     function canUpdateRole(role: Role) {
         return role !== user.role && user.role === 'ADMIN';
     }
@@ -28,8 +29,14 @@
         await trpcClient().mutation('users.role', { id: user.id, role: selectedRole });
     }
 
+    async function updatePlatformId() {
+        user.platformId = selectedPlatformId;
+        await trpcClient().mutation('users.platform', { userId: user.id, platformId: selectedPlatformId });
+    }
+
     onMount(() => {
         selectedRole = user.role;
+        selectedPlatformId = user.platformId
     });
 </script>
 
@@ -56,6 +63,16 @@
                         </div>
                         <div class="control">
                             <button class="button" disabled={!canUpdateRole(selectedRole)} on:click={updateRole}>
+                                Apply
+                            </button>
+                        </div>
+                    </div>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input class="input" type="text" placeholder="76561198088728803" bind:value={selectedPlatformId}>
+                        </div>
+                        <div class="control">
+                            <button class="button" on:click={updatePlatformId}>
                                 Apply
                             </button>
                         </div>

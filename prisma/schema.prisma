@@ -3,6 +3,7 @@
 
 generator client {
     provider = "prisma-client-js"
+    previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -16,6 +17,57 @@ model User {
     username          String
     discriminator     String
     role              Role        @default(USER)
+
+    emotes            Emote[]     @relation(name: "EmoteUploader")
+    approved          Emote[]     @relation(name: "EmoteApprover")
+    createdSeries     Series[]    @relation(name: "SeriesCreator")
+
+    platformId        String?
+}
+
+model Emote {
+    id                String      @id @default(uuid())
+    name              String
+    path              String
+
+    uploaded          DateTime    @default(now())
+    uploader          User        @relation(name: "EmoteUploader", fields: [uploaderId], references: [id])
+    uploaderId        String
+
+    approved          DateTime    @default(now())
+    approver          User?       @relation(name: "EmoteApprover", fields: [approverId], references: [id])
+    approverId        String?
+
+    emoteTags         EmoteTag[]
+    status            Status      @default(PENDING)
+
+    series            Series?     @relation(name: "SeriesEmote", fields: [seriesId], references: [id])
+    seriesId          String?
+}
+
+model Tag {
+    id                Int         @id @default(autoincrement())
+    name              String
+
+    emoteTags         EmoteTag[]
+    verified          Boolean     @default(false)
+}
+
+model EmoteTag {
+    id                Int         @id @default(autoincrement())
+    tag               Tag         @relation(fields: [tagId], references: [id])
+    tagId             Int
+    emote             Emote       @relation(fields: [emoteId], references: [id])
+    emoteId           String
+}
+
+model Series {
+    id                String      @id @default(uuid())
+    name              String
+    creator           User        @relation(name: "SeriesCreator", fields: [creatorId], references: [id])
+    creatorId         String
+    verified          Boolean     @default(false)
+    emotes            Emote[]     @relation(name: "SeriesEmote")
 }
 
 enum Role {
@@ -23,4 +75,10 @@ enum Role {
     BANNED
     SUPPORTER
     ADMIN
+}
+
+enum Status {
+    PENDING
+    APPROVED
+    REJECTED
 }
