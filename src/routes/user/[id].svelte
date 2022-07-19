@@ -36,7 +36,7 @@
 
     onMount(() => {
         selectedRole = user.role;
-        selectedPlatformId = user.platformId
+        selectedPlatformId = user.platformId;
     });
 </script>
 
@@ -69,12 +69,15 @@
                     </div>
                     <div class="field has-addons">
                         <div class="control">
-                            <input class="input" type="text" placeholder="76561198088728803" bind:value={selectedPlatformId}>
+                            <input
+                                class="input"
+                                type="text"
+                                placeholder="76561198088728803"
+                                bind:value={selectedPlatformId}
+                            />
                         </div>
                         <div class="control">
-                            <button class="button" on:click={updatePlatformId}>
-                                Apply
-                            </button>
+                            <button class="button" on:click={updatePlatformId}> Apply </button>
                         </div>
                     </div>
                 {/if}

@@ -77,9 +77,9 @@ const users = createRouter()
             await prismaClient.user.update({
                 where: { id: input.userId },
                 data: { platformId: input.platformId }
-            })
+            });
         }
-    })
+    });
 
 const tags = createRouter().query('all', {
     async resolve({ ctx }) {
