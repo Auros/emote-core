@@ -4,7 +4,7 @@ FROM mhart/alpine-node:16
 WORKDIR /app
 COPY prisma ./prisma/
 COPY package.json yarn.lock ./
-RUN yarn --frozen-lockfile
+RUN yarn --frozen-lockfile --ignore-engines
 
 # Copy all local files into the image.
 COPY . .
