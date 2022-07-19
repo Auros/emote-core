@@ -35,12 +35,12 @@ export const get = async (event: RequestEvent) => {
 
     const users = await prismaClient.user.findMany({
         where: { platformId: { in: platformIds } },
-        select: { role: true, emotes: { select: { uploaderId: true } } }
+        select: { role: true, platformId: true, emotes: { select: { uploaderId: true } } }
     });
 
     const response = users.map((u) => {
         return {
-            id: u.role,
+            id: u.platformId,
             permission: u.role === 'ADMIN' || u.emotes.find((e) => e.uploaderId) !== undefined
         };
     });

@@ -2,7 +2,7 @@
     "name": "emote-core",
     "version": "0.0.1",
     "scripts": {
-        "dev": "env-cmd vite dev --https",
+        "dev": "env-cmd vite dev",
         "build": "env-cmd vite build",
         "package": "svelte-kit package",
         "preview": "env-cmd vite preview",
@@ -10,7 +10,8 @@
         "check": "svelte-check --tsconfig ./tsconfig.json",
         "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
         "lint": "prettier --check --plugin-search-dir=. . && eslint .",
-        "format": "prettier --write --plugin-search-dir=. ."
+        "format": "prettier --write --plugin-search-dir=. .",
+        "start": "prisma migrate deploy && node ./build"
     },
     "devDependencies": {
         "@sveltejs/adapter-auto": "next",
@@ -34,11 +35,13 @@
         "sveltekit-oauth": "^0.1.4",
         "tslib": "^2.3.1",
         "typescript": "^4.7.4",
-        "vite": "^2.9.13"
+        "vite": "^2.9.13",
+        "vite-plugin-mkcert": "^1.9.0"
     },
     "type": "module",
     "dependencies": {
         "@prisma/client": "^4.0.0",
+        "@sveltejs/adapter-node": "^1.0.0-next.82",
         "@trpc/client": "^9.25.3",
         "@trpc/server": "^9.25.3",
         "axios": "^0.27.2",

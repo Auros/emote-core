@@ -1,5 +1,7 @@
-import fs from 'fs';
-import download from 'download';
+import axios from 'axios';
+import FormData from 'form-data';
+import pubEnv from '$lib/env/pubEnv';
+import privEnv from '$lib/env/privEnv';
 import prismaClient from '$lib/server/prismaClient';
 import type { DiscordProfile } from '$lib/auth/discord';
 
@@ -10,12 +12,13 @@ export async function createOrUpdateUser(profile: DiscordProfile) {
         }
     });
 
-    const name = `${profile.id}-${profile.avatar}.png`;
-    const lPFP = `/profiles/${name}`;
+    const id = `${profile.id}-${profile.avatar}`
+    const lPFP = `${pubEnv.emoteCdn}/cdn-cgi/imagedelivery/${privEnv.cloudflareAccountHash}/${id}/${privEnv.cloudflareImageVariantName}`;
+    const discordPFP = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png?size=256`;
 
     if (user) {
         if (user.pfp !== lPFP) {
-            await createPFP(profile);
+            await createPFP(id, profile.id, discordPFP);
             await prismaClient.user.update({
                 where: { id: profile.id },
                 data: { pfp: lPFP }
@@ -36,7 +39,7 @@ export async function createOrUpdateUser(profile: DiscordProfile) {
         return user;
     }
 
-    await createPFP(profile);
+    await createPFP(id, profile.id, discordPFP);
     user = await prismaClient.user.create({
         data: {
             pfp: lPFP,
@@ -50,13 +53,29 @@ export async function createOrUpdateUser(profile: DiscordProfile) {
     return user;
 }
 
-async function createPFP(profile: DiscordProfile) {
-    const url = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.png?size=256`;
-    const name = `${profile.id}-${profile.avatar}.png`;
+async function createPFP(id: string, userId: string, url: string) {
+    const form = new FormData();
+    form.append('url', url);
+    form.append(
+        'metadata',
+        JSON.stringify({
+            role: `pfp`,
+            userId
+        })
+    )
 
-    if (!fs.existsSync(`static/profiles/${name}`)) {
-        await download(url, 'static/profiles', {
-            filename: name
+    console.log(id)
+    form.append('id', id)
+    console.log(form)
+
+    const reqUrl = `https://api.cloudflare.com/client/v4/accounts/${privEnv.cloudflareAccountId}/images/v1`
+    try {
+        const response = await axios.post(reqUrl, form, {
+            headers: {
+                Authorization: `Bearer ${privEnv.cloudflareApiKey}`
+            }
         });
+    } catch (e) {
+        //console.log(e.response);
     }
 }

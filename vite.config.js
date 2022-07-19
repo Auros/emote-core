@@ -1,9 +1,12 @@
 import { sveltekit } from '@sveltejs/kit/vite';
+import mkcert from 'vite-plugin-mkcert';
 
 /** @type {import('vite').UserConfig} */
 const config = {
-    plugins: [sveltekit()],
-
+    plugins: [sveltekit(), mkcert()],
+    server: {
+        https: process.env.MODE === 'development'
+    },
     css: {
         preprocessorOptions: {
             scss: {

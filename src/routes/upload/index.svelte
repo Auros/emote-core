@@ -101,7 +101,7 @@
                         <label class="label" for="mod-upload">Upload</label>
                         <div class="file has-name">
                             <label class="file-label">
-                                <input class="file-input" type="file" accept="image/png" bind:files required />
+                                <input class="file-input" type="file" accept="image/png,image/jpeg" bind:files required />
                                 <span class="file-cta">
                                     <span class="file-icon has-text-primary">
                                         <i class="fas fa-upload" />

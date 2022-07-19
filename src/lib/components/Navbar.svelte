@@ -1,6 +1,7 @@
 <script>
     import pubEnv from '$lib/env/pubEnv';
     import { session } from '$app/stores';
+    import logo from '$lib/logo.png'
 
     let active = false;
 </script>
@@ -9,7 +10,7 @@
     <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item" href="/">
-                <img src="/favicon.png" alt="Emote Core Logo" />
+                <img src={logo} alt="Emote Core Logo" />
             </a>
 
             <a
