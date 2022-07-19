@@ -2,6 +2,7 @@ FROM mhart/alpine-node:14
 
 # install dependencies
 WORKDIR /app
+COPY prisma ./prisma/
 COPY package.json yarn.lock ./
 RUN yarn --frozen-lockfile
 
