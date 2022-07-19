@@ -9,6 +9,9 @@ RUN yarn --frozen-lockfile
 # Copy all local files into the image.
 COPY . .
 
+ENV VITE_BASE_URL=https://emote-core.auros.dev
+ENV VITE_EMOTE_CDN=https://emote-core.auros.dev
+
 RUN yarn build
 
 ###
