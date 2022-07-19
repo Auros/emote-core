@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:16
+FROM node:16 as builder
 
 # install dependencies
 WORKDIR /app
@@ -15,10 +15,11 @@ RUN yarn build
 # Only copy over the Node pieces we need
 # ~> Saves 35MB
 ###
-FROM mhart/alpine-node:slim-16
+FROM node:16
 
-WORKDIR /app
-COPY --from=0 /app .
-COPY . .
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/yarn.lock ./
+COPY --from=builder /app/build ./build
 
 CMD ["yarn", "start"]
