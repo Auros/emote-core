@@ -1,4 +1,4 @@
-FROM node:16 as builder
+FROM node:16-alpine as builder
 
 # install dependencies
 WORKDIR /app
@@ -15,7 +15,7 @@ RUN yarn build
 # Only copy over the Node pieces we need
 # ~> Saves 35MB
 ###
-FROM node:16
+FROM node:16-alpine
 
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
