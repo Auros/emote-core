@@ -3,7 +3,7 @@ FROM mhart/alpine-node:16
 # install dependencies
 WORKDIR /app
 COPY prisma ./prisma/
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock svelte.config.js vite.config.js tsconfig.json ./
 RUN yarn --frozen-lockfile --ignore-engines
 
 # Copy all local files into the image.
