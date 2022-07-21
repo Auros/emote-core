@@ -94,7 +94,7 @@
                     <br />
                 </div>
             </div>
-            {#if $session.user && ($session.user.role === 'ADMIN' || $session.user.role === 'SUPPORTER')}
+            {#if $session.user && $session.user.role === 'ADMIN'}
                 <div class="media-right">
                     <p class="image is-64x64">
                         <img class="is-rounded" src={body.uploader.pfp} alt="Uploader" />

@@ -109,7 +109,7 @@ const series = createRouter()
             name: z.string()
         }),
         async resolve({ ctx, input }) {
-            if (!ctx.user || (ctx.user.role !== 'ADMIN' && ctx.user.role !== 'SUPPORTER'))
+            if (!ctx.user || (ctx.user.role !== 'ADMIN'))
                 throw new TRPCError({ code: 'UNAUTHORIZED' });
 
             let emote = await prismaClient.emote.findUnique({
