@@ -56,9 +56,11 @@
     }
 
     async function updateSeries() {
+        if (text === 'No Series') return;
+
         await trpcClient().mutation('series.assign', {
             emoteId: body.emote.id,
-            name: selectedSeriesName
+            name: text
         });
         location.reload();
     }
